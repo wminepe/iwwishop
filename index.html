@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>IwwiShop — IwwiTeam</title>
+    <title>IwwiShop -- Магазин</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -35,9 +35,10 @@
             position: relative;
             min-height: 100vh;
             scroll-behavior: smooth;
+            display: flex;
+            flex-direction: column;
         }
 
-        /* Легкий шум */
         body::before {
             content: "";
             position: fixed;
@@ -47,7 +48,6 @@
             z-index: 10;
         }
 
-        /* Анимации появления */
         .fade-up {
             opacity: 0;
             transform: translateY(30px);
@@ -58,7 +58,6 @@
             transform: translateY(0);
         }
 
-        /* Навигация */
         nav {
             display: flex;
             justify-content: space-between;
@@ -127,8 +126,6 @@
             font-size: 0.85rem;
             cursor: pointer;
             transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
         }
 
         .support-btn:hover {
@@ -137,7 +134,6 @@
             box-shadow: 0 0 15px rgba(255, 45, 123, 0.2);
         }
 
-        /* Главный экран */
         .hero {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -146,6 +142,7 @@
             max-width: 1300px;
             margin: 0 auto;
             align-items: center;
+            flex-grow: 1;
         }
 
         .hero-content {
@@ -210,15 +207,15 @@
             width: 100%;
             max-width: 500px;
             border-radius: 16px;
-            transition: transform 0.1s ease-out; /* Для параллакса */
+            transition: transform 0.1s ease-out;
             box-shadow: 0 20px 50px rgba(0,0,0,0.5);
         }
 
-        /* Каталог */
         .catalog {
             padding: 80px 6vw;
             max-width: 1300px;
             margin: 0 auto;
+            width: 100%;
         }
 
         .catalog-header {
@@ -335,7 +332,6 @@
             transform: scale(0.95);
         }
 
-        /* Корзина FAB */
         .cart-fab {
             position: fixed;
             bottom: 24px;
@@ -380,7 +376,6 @@
             color: var(--accent);
         }
 
-        /* Модальное окно (Центральное) */
         .modal-overlay {
             position: fixed;
             inset: 0;
@@ -544,7 +539,6 @@
             transform: translateY(0);
         }
 
-        /* Экран загрузки */
         .loading-screen {
             position: fixed;
             inset: 0;
@@ -599,7 +593,6 @@
             text-align: center;
         }
 
-        /* Тосты */
         .toast {
             position: fixed;
             bottom: 100px;
@@ -623,7 +616,16 @@
             opacity: 1;
         }
 
-        /* Адаптив */
+        /* Футер */
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            margin-top: auto;
+            color: rgba(255, 255, 255, 0.3);
+            font-size: 0.8rem;
+            letter-spacing: 0.5px;
+        }
+
         @media (max-width: 900px) {
             .hero { grid-template-columns: 1fr; text-align: center; padding-top: 60px; }
             .hero p { margin: 0 auto 30px auto; }
@@ -646,7 +648,6 @@
 </head>
 <body>
 
-    <!-- Навигация -->
     <nav>
         <a href="#" class="logo">
             IwwiShop <span class="logo-sticker">IwwiTeam</span>
@@ -657,11 +658,10 @@
         </div>
     </nav>
 
-    <!-- Hero -->
     <section class="hero">
         <div class="hero-content fade-up">
             <h1>Цифровые<br>вещи для <span>своих.</span></h1>
-            <p>Небольшая студия IwwiTeam делает стикеры, аватарки и оверлеи. Без лишнего пафоса и массового контента. Всё бесплатно.</p>
+            <p>Стикеры, аватарки и оверлеи от студии IwwiTeam. Забирай бесплатно через нашего Telegram-бота.</p>
             <a href="#catalog" class="btn-primary">Смотреть каталог</a>
         </div>
         <div class="hero-visual fade-up" id="hero-visual">
@@ -669,7 +669,6 @@
         </div>
     </section>
 
-    <!-- Каталог -->
     <section class="catalog" id="catalog">
         <div class="catalog-header fade-up">
             <h2>Коллекция</h2>
@@ -680,13 +679,16 @@
         </div>
     </section>
 
-    <!-- Кнопка Корзины -->
+    <!-- Подвал -->
+    <footer>
+        Все права защищены. © IwwiTeam, 2025-2027
+    </footer>
+
     <button class="cart-fab" id="openCart">
         <span>Корзина</span>
         <span class="cart-count" id="cartCount">0</span>
     </button>
 
-    <!-- Модальное окно корзины -->
     <div class="modal-overlay" id="cartModal">
         <div class="cart-modal">
             <div class="cart-header">
@@ -708,18 +710,15 @@
         </div>
     </div>
 
-    <!-- Экран загрузки -->
     <div class="loading-screen" id="loadingScreen">
         <div class="spinner"></div>
         <div class="loading-text" id="loadingText">Собираем ваш заказ...</div>
         <div class="loading-subtext" id="loadingSubtext">Пожалуйста, не закрывайте страницу</div>
     </div>
 
-    <!-- Тосты -->
     <div id="toast" class="toast">Сообщение</div>
 
     <script>
-        // Данные товаров
         const products = [
             { id: 'soft-forms', name: 'Soft Forms', price: 0, desc: '24 стикера для Telegram.', img: 'images/stickers.png' },
             { id: 'odd-hours', name: 'Odd Hours', price: 0, desc: '32 стикера для ночных разговоров.', img: 'images/night_stickers.png' },
@@ -740,12 +739,7 @@
         const loadingText = document.getElementById('loadingText');
         const loadingSubtext = document.getElementById('loadingSubtext');
 
-        // --- Анимация появления при скролле ---
-        const observerOptions = {
-            root: null,
-            rootMargin: '0px',
-            threshold: 0.1
-        };
+        const observerOptions = { root: null, rootMargin: '0px', threshold: 0.1 };
         const observer = new IntersectionObserver((entries, observer) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
@@ -759,7 +753,6 @@
             document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
         }
 
-        // --- Параллакс для главной картинки ---
         const heroVisual = document.getElementById('hero-visual');
         const heroImg = document.getElementById('hero-img');
         
@@ -785,8 +778,6 @@
                     </div>
                 </div>
             `).join('');
-            
-            // Запускаем обсервер после рендера карточек
             observeElements();
         }
 
@@ -810,7 +801,6 @@
             localStorage.setItem('iwwi_cart', JSON.stringify(cart));
             cartCount.textContent = cart.length;
             
-            // Анимация прыжка счетчика
             cartCount.style.transform = 'scale(1.5)';
             setTimeout(() => cartCount.style.transform = 'scale(1)', 200);
 
@@ -896,6 +886,7 @@
 
         renderProducts();
         updateCart();
+        observeElements();
     </script>
 </body>
 </html>
